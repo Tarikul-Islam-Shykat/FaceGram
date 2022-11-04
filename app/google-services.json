@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "647282012603",
+    "project_id": "facegram-f42db",
+    "storage_bucket": "facegram-f42db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:647282012603:android:14b827e7cda46d032c149e",
+        "android_client_info": {
+          "package_name": "com.example.facegram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "647282012603-4cnpb4u05fi38jlh60n41eg6leg8rvcc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHlZvMyM8SnQcYTFCiT88ZH3CmJ3aVtT8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "647282012603-4cnpb4u05fi38jlh60n41eg6leg8rvcc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
