@@ -15,6 +15,7 @@ import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.example.facegram.DashBoard.DashBoard;
 import com.example.facegram.Modal.videoFileModel;
 import com.example.facegram.R;
 import com.example.facegram.databinding.ActivityAddVideoBinding;
@@ -82,6 +83,7 @@ public class addVideo extends AppCompatActivity {
             public void onClick(View v) {
                 progressDialog.show();
                 process_firebase_videoUpload();
+
             }
         });
     }
@@ -109,8 +111,7 @@ public class addVideo extends AppCompatActivity {
                         // now its time ot upload the video url in the firebase realtime database.
                         // we are going to provide the object/ modal to the firebase Realtime database, which is helpful for not providing one info at one time.
                         String video_title = binding_addVideo.txtVtitle.getText().toString();
-                        String video_uri_ = video_URI.toString();
-                        videoFileModel object_of_Video = new videoFileModel(video_title, video_uri_);
+                        videoFileModel object_of_Video = new videoFileModel(video_title, uri.toString());
                         videoInfo_to_RealTimeDataBase(object_of_Video);
                     }
                 });
@@ -141,6 +142,8 @@ public class addVideo extends AppCompatActivity {
                     public void onSuccess(Void unused) {
                         progressDialog.dismiss();
                         Toast.makeText(getApplicationContext(), "Realtime Database success", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), DashBoard.class));
+                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

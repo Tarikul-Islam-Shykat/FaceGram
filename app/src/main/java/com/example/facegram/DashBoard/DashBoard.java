@@ -8,29 +8,45 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.facegram.MainActivity;
 import com.example.facegram.Modal.RealTimeDataBase_VideoModal;
 import com.example.facegram.Modal.videoFileModel;
 import com.example.facegram.R;
+import com.example.facegram.UserProfile.userProfileUpdate;
 import com.example.facegram.addVideo.addVideo;
 import com.example.facegram.viewHolder.dashBoardViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class DashBoard extends AppCompatActivity {
 
     FloatingActionButton floatingActionButton;
     RecyclerView recyclerView;
+
+    DatabaseReference likeReference;
+    Boolean testClick = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
+
+        likeReference = FirebaseDatabase.getInstance().getReference("likes");// create the root node and  get the like reference from the firebaseViewHolder
 
         floatingActionButton = findViewById(R.id.dashboard_floating_actionButton);
         recyclerView = findViewById(R.id.dashBoard_recView);
@@ -56,8 +72,62 @@ public class DashBoard extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull dashBoardViewHolder holder, int position, @NonNull RealTimeDataBase_VideoModal model) {
                 //Toast.makeText(getApplicationContext(), model.getV_title().toString(), Toast.LENGTH_SHORT).show();
-                //holder.prepareExoplayer(getApplication(), model.getV_title(), model.getV_url());
-                holder.setText(model.getV_title());
+                holder.prepareExoplayer(getApplicationContext(), model.getTitle(), model.getVurl());
+                //Toast.makeText(getApplicationContext(), model.getVurl().toString(), Toast.LENGTH_SHORT).show();
+
+                /* like option :
+                * every video will have an id. If any user press on the like btn, then that userId or info will be added in that videoId.
+                * This will be helpful when user again open the app and he will see the things that he liked.
+                * We will check if the video id contains the userId of the current user. Based on that,
+                * the like or unlike button will show.*/
+
+                // get the userId
+                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                String userId = firebaseUser.getUid();
+                // get the video Id
+                String postKey_videoId = getRef(position).getKey();
+                // now get
+                holder.getLikeButtonStatus(postKey_videoId, userId); // this will create the method in the viewHolder.
+
+                holder.like_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        testClick = true;
+                        likeReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if(testClick == true){
+                                    // check first if the following video already liked by the user
+                                    if(snapshot.child(postKey_videoId).hasChild(userId)){
+                                        /*
+                                        * this portion of the code is for removing the like if pressed again.
+                                        * if the userId is already inside the videoId and userPress the button then the
+                                        * the userId will be gone from there.
+                                        * */
+                                        likeReference.child(postKey_videoId).removeValue();
+                                        testClick = false;
+                                    }
+                                    else
+                                    {
+                                        /*
+                                        * if not then
+                                        * push the userId under the videoId,
+                                        * */
+                                        likeReference.child(postKey_videoId).child(userId).setValue(true);
+                                        testClick = false;
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+                    }
+                });
+
+
             }
 
             @NonNull
@@ -67,17 +137,35 @@ public class DashBoard extends AppCompatActivity {
                 return new dashBoardViewHolder(view);
             }
         };
-
          firebaseRecyclerAdapter.startListening();
          recyclerView.setAdapter(firebaseRecyclerAdapter);
 
     }
 
+    // for menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.appmenu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+    // for menu item selected
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_logOut:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
+                break;
+            case R.id.menu_manageProfile:
+                startActivity(new Intent(getApplicationContext(), userProfileUpdate.class));
+                finish();
+
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
 
-/*
-* TODO: so the main issue, we are not getting any value form the firebase, not the url or the text, so if we dont
-*  get anything we cant show them in the recycler view.
-*
-*
-* */
