@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.facegram.Comment.CommentPanel;
 import com.example.facegram.MainActivity;
 import com.example.facegram.Modal.RealTimeDataBase_VideoModal;
 import com.example.facegram.Modal.videoFileModel;
@@ -80,7 +81,6 @@ public class DashBoard extends AppCompatActivity {
                 * This will be helpful when user again open the app and he will see the things that he liked.
                 * We will check if the video id contains the userId of the current user. Based on that,
                 * the like or unlike button will show.*/
-
                 // get the userId
                 FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                 String userId = firebaseUser.getUid();
@@ -127,6 +127,21 @@ public class DashBoard extends AppCompatActivity {
                     }
                 });
 
+                // comment panel
+                holder.comment_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(DashBoard.this, "comment", Toast.LENGTH_SHORT).show();
+                        try {
+                            Intent intent = new Intent(getApplicationContext(), CommentPanel.class);
+                            intent.putExtra("postKey", postKey_videoId);
+                            startActivity(intent);
+                        }
+                        catch (Exception e){
+                            Toast.makeText(DashBoard.this, e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
             }
 
@@ -137,6 +152,8 @@ public class DashBoard extends AppCompatActivity {
                 return new dashBoardViewHolder(view);
             }
         };
+
+
          firebaseRecyclerAdapter.startListening();
          recyclerView.setAdapter(firebaseRecyclerAdapter);
 

@@ -11,9 +11,8 @@
     <ImageView
         android:layout_width="@dimen/_50sdp"
         android:layout_height="@dimen/_50sdp"
-        android:src="@drawable/splash_screen_logo"
         android:layout_centerInParent="true"
-        />
+        android:src="@drawable/splash_screen_logo" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -28,15 +27,11 @@
         android:id="@+id/splash_screen_secondaryLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BRACU"
-        android:textSize="@dimen/_20sdp"
-        android:textStyle="bold"
-        android:textColor="#03A9F4"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/_20sdp"
-        />
-
-
-
+        android:text="BRACU"
+        android:textColor="#03A9F4"
+        android:textSize="@dimen/_20sdp"
+        android:textStyle="bold" />
 </RelativeLayout>

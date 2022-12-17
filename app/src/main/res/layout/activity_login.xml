@@ -129,8 +129,6 @@
             android:text="Sign Up"
             android:textColor="#00BCD4"
             />
-
-
     </LinearLayout>
 
 </RelativeLayout>

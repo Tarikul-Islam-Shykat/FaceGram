@@ -5,22 +5,14 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.facegram.R;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.trackselection.TrackSelector;
-import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.ui.StyledPlayerView;
-import com.google.android.exoplayer2.upstream.BandwidthMeter;
-import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,6 +29,7 @@ public class dashBoardViewHolder extends RecyclerView.ViewHolder {
 
     DatabaseReference  likeReference;
 
+    public  ImageButton comment_btn;
 
     public dashBoardViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -46,6 +39,8 @@ public class dashBoardViewHolder extends RecyclerView.ViewHolder {
         //like countText and likeButton
         like_btn = itemView.findViewById(R.id.sample_row_love);
         like_txt = itemView.findViewById(R.id.sample_row_Liketext);
+
+        comment_btn = itemView.findViewById(R.id.sample_row_comment);
     }
 
     // preparing the exoPlayer

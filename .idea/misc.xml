@@ -5,12 +5,14 @@
       <map>
         <entry key="..\:/Android/Project For CV/FaceGram/app/src/main/res/drawable/custom_button_1.xml" value="0.2235" />
         <entry key="..\:/Android/Project For CV/FaceGram/app/src/main/res/layout/activity_add_video.xml" value="0.3104166666666667" />
+        <entry key="..\:/Android/Project For CV/FaceGram/app/src/main/res/layout/activity_comment_panel.xml" value="0.23425925925925925" />
         <entry key="..\:/Android/Project For CV/FaceGram/app/src/main/res/layout/activity_dash_board.xml" value="0.29322916666666665" />
         <entry key="..\:/Android/Project For CV/FaceGram/app/src/main/res/layout/activity_login.xml" value="0.3104166666666667" />
         <entry key="..\:/Android/Project For CV/FaceGram/app/src/main/res/layout/activity_main.xml" value="0.3104166666666667" />
         <entry key="..\:/Android/Project For CV/FaceGram/app/src/main/res/layout/activity_register.xml" value="0.29322916666666665" />
         <entry key="..\:/Android/Project For CV/FaceGram/app/src/main/res/layout/activity_splash_screen2.xml" value="0.3104166666666667" />
         <entry key="..\:/Android/Project For CV/FaceGram/app/src/main/res/layout/activity_user_profile_update.xml" value="0.3104166666666667" />
+        <entry key="..\:/Android/Project For CV/FaceGram/app/src/main/res/layout/sample_comment_row.xml" value="0.309375" />
         <entry key="..\:/Android/Project For CV/FaceGram/app/src/main/res/layout/sample_video_row_dashboard.xml" value="0.346875" />
         <entry key="..\:/Android/Project For CV/FaceGram/app/src/main/res/menu/appmenu.xml" value="0.3028600612870276" />
       </map>
